@@ -1,0 +1,16 @@
+<div class="row" ng-if="!FazendoRequest">
+
+	<div class="row centered-form center-block">
+	   <div class="container col-md-12">
+		    <img style="text-align:center;height:400px; margin-top: 60px;" ng-src="{{fase.Img}}"/>
+		</div>
+	</div>
+
+	<div class="row" style=" background-color: #FFFFFF; margin: 20px 0px;">
+			
+		<div class="col-md-12" style="background-color: #FFFFFF; padding: 15px;"><p>{{ fase.Descricao }}</p></div>
+			
+	</div>
+
+	<div class="row" style=""><button class="playBtn" ng-click="action()">JOGAR</button></div>
+</div>

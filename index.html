@@ -1,0 +1,224 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-csp="" ng-app="boilerplate"> <!--<![endif]-->
+
+	<head>
+
+		<base href="/">
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<title>AngularJS Boilerplate</title>
+		<meta name="description" content="Simple AngularJS Boilerplate to kick start your new project with SASS support and Gulp watch/build tasks">
+
+		<!-- mobile meta -->
+		<meta name="HandheldFriendly" content="True">
+		<meta name="MobileOptimized" content="320">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+
+		<!--[if IE]>
+			<link rel="shortcut icon" href="favicon.ico">
+		<![endif]-->
+		<!-- or, set /favicon.ico for IE10 win -->
+		<meta name="msapplication-TileColor" content="#f01d4f">
+
+		<!-- CSS -->
+		<!-- build:css css/style.min.css -->
+		<link rel="stylesheet" href="bower_components/OwlCarousel/owl-carousel/owl.carousel.css" />
+		<link rel="stylesheet" type="text/css" href="styles/style.css" />
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog.min.css" />
+		<link rel="stylesheet" href="bower_components/alertify.js/themes/alertify.bootstrap.css" />
+		<link rel="stylesheet" href="bower_components/alertify.js/themes/alertify.core.css" />
+		<link rel="stylesheet" href="bower_components/alertify.js/themes/alertify.default.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<!-- endbuild -->
+
+	</head>
+
+	<body class="main-wrapper">
+	
+		<!--[if lt IE 8]>
+		    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
+
+		<!-- Navigation -->
+		<!-- <main-nav></main-nav> -->
+		<div class="row text-center" ng-controller="LoginController" >
+			<div id="SiteTitle" style="z-index: 5;" ng-if="!UserIsLogged" >
+				<p style="display: inline-block; color: white; cursor: pointer; font-size: 16px;">
+					<span ng-click="ChangeLoginOptions(1)" ><i class="fa fa-pencil-square-o"></i> &nbsp;Cadastro</span> &nbsp;&nbsp;
+					<span ng-click="ChangeLoginOptions(2)" ><i class="fa fa-key" ></i> &nbsp;Login</span> &nbsp;&nbsp;
+					<span ng-click="FacebookLogin()"  ><i class="fa fa-facebook-official" ></i> &nbsp;Entre pelo Facebook</span>
+				</p>
+			</div>
+			<div id="SiteTitle" style="z-index: 5;" ng-if="UserIsLogged" >
+				Olá, seja bem-vindo!
+			</div>
+		</div>
+
+		<!-- Main view for templates -->
+		<div data-ng-view="" class="container" style="z-index: 2;" ></div>
+
+	</body>
+
+	
+<style type="text/css">
+
+.header {
+	position: fixed;
+    width: 100%;
+}
+
+body {
+	height: 100%;
+}
+
+.container {
+	height: 100%;
+    text-align: center;
+}
+
+#SiteTitle{
+    position: fixed; width: 100%; left: 0; top: 25px;
+}
+
+#Content span:hover { color: #B8DE6A!important; }
+
+#Main {
+	height: 100%;
+}
+
+div#LoginDiv div h3 { 
+	cursor: pointer;
+}
+
+#LoginDiv h3 {
+    padding: 18px 0px;
+    background: white;
+    color: #7CA40A;
+    font-size: 20px;
+}
+
+.LoginOptions h3{
+	color: white;
+}
+
+.ngdialog-content{ 
+	z-index: 1;
+    position: absolute;
+    width: 40%;
+    left: 30%;
+    top: 20%;
+    background: #B8DE6A;
+}	    
+.ngdialog-close {
+	display: none!important;
+}
+</style>
+
+	<script type="text/ng-template" id="LoginDialog">
+		<i class="fa fa-times" style="color: white; position: absolute; top: 22px; right: 20px; font-size: 20px; cursor: pointer; z-index: 2;" ng-click="Fechar()" ></i>
+	    <div class="ngdialog-message col-sm-12 col-md-12 col-lg-12" >
+	    	<div class="row text-center LoginOptions" ng-if="LoginSelectedOption==1" >
+	    		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom: 25px; border-right: 1px solid;" >
+	    			<h3 class="text-center" >CADASTRE-SE</h3><br>
+	        		<div class="input-group" style="width: 100%;" >
+						<input style="width: 100%; max-width: 100%;" type="text" class="form-control" placeholder="Nome Completo" ng-model="NomeCompleto" >
+					</div><br>
+					<div class="input-group" style="width: 100%;" >
+						<input style="width: 100%; max-width: 100%;" type="text" class="form-control" placeholder="Data de Nascimento" ng-model="DataNascimento" >
+					</div><br>
+					<div class="input-group" style="width: 100%;" >	
+						<input style="width: 100%; max-width: 100%;" type="text" class="form-control" placeholder="E-mail" ng-model="Email" >
+					</div><br>
+					<div class="input-group" style="width: 100%;" >
+						<input style="width: 48%; max-width: 50%; float: left;" type="password" class="form-control" placeholder="Senha" ng-model="Senha" >
+
+						<input style="width: 48%; max-width: 50%; float: right;" type="password" class="form-control" placeholder="Confirmar Senha" ng-model="ConfirmarSenha" >
+					</div><br>
+					<button style="color: rgb(92, 107, 128); background: rgb(234, 237, 242); border-radius: 50%; width: 50px; height: 50px; margin-bottom: 10px;" class="btn btn-default" ng-click="CadastroManual(Email, Senha, NomeCompleto, DataNascimento)" >OK</button>
+	        	</div>
+	    	</div>
+
+	    	<div class="row text-center LoginOptions" ng-if="LoginSelectedOption==2" >
+	        	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+	    			<h3 class="text-center" >FAÇA LOGIN</h3><br>
+	        		<div class="input-group" style="width: 100%;" >
+						<input style="width: 100%; max-width: 100%;" type="text" class="form-control" placeholder="E-mail" ng-model="LoginEmail" >
+					</div><br>
+					<div class="input-group" style="width: 100%;" >
+						<input style="width: 100%; max-width: 100%;" type="password" class="form-control" placeholder="Senha" ng-model="LoginSenha" >
+					</div><br>
+					<button style="color: rgb(92, 107, 128); background: rgb(234, 237, 242); border-radius: 50%; width: 50px; height: 50px; margin-bottom: 20px;" class="btn btn-default" ng-click="LoginManual(LoginEmail, LoginSenha)" >OK</button>
+	        	</div>
+	        </div>
+	    </div>
+	</script>
+
+
+	<!-- Vendors -->
+	<!-- build:nonangularlibs js/nonangularlibs.js -->
+	<script type="text/javascript" src="js/nonangular/jquery-1.11.2.min.js"></script>
+	<!-- endbuild -->
+
+	<!-- Non-angular libraries -->
+	<!-- build:libs js/libs.js -->
+	<script type="text/javascript" src="js/nonangular/lodash.min.js"></script>
+	<script type="text/javascript" src="js/scripts.js"></script>
+	<script type="text/javascript" src="bower_components/OwlCarousel/owl-carousel/owl.carousel.min.js"></script>
+	<!-- endbuild -->
+
+	<!-- Angular external libraries for application -->
+	<!-- build:angularlibs js/angularlibs.js -->
+	<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+	<script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
+	<script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+	<script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+	<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="bower_components/ng-dialog/js/ngDialog.min.js"></script>
+	<script type="text/javascript" src="bower_components/alertify.js/lib/alertify.min.js"></script><script type="text/javascript" src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+	<script type="text/javascript" src="js/angular/angularfire.min.js"></script>
+
+	<!-- endbuild -->
+
+	<!-- Angular components -->
+	<!-- build:appcomponents js/appcomponents.js -->
+	<script type="text/javascript" src="app/app.js"></script>
+	<script type="text/javascript" src="app/config.js"></script>
+	<script type="text/javascript" src="components/services/LocalStorage.service.js"></script>
+	<script type="text/javascript" src="components/services/queryService.service.js"></script>
+	<script type="text/javascript" src="components/directives/main.nav.directive.js"></script>
+	<script type="text/javascript" src="components/directives/responsive.nav.directive.js"></script>
+	<script type="text/javascript" src="components/directives/owl.slider.directive.js"></script>
+	<!-- endbuild -->
+
+	<!-- Application sections -->
+	<!-- build:mainapp js/mainapp.js -->
+	<script type="text/javascript" src="app/controller.js"></script>
+	<script type="text/javascript" src="app/usuarios/LoginController.js"></script>
+	<script type="text/javascript" src="app/fases/FasesController.js"></script>
+	<script type="text/javascript" src="app/acontecimentos/AcontecimentosController.js"></script>
+	
+	<!-- endbuild -->
+
+	<!-- templates from $templateCache -->
+	<!-- build:templates -->
+	<!-- endbuild -->
+	
+	<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+	<script>
+	    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+	    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+	    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+	    e.src='https://www.google-analytics.com/analytics.js';
+	    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+	    ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+	</script>
+
+	<script type="text/javascript" src="bundle.js"></script>
+
+</html>
